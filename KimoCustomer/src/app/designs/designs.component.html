@@ -1,0 +1,108 @@
+<div class="container">
+  `       <h1>Product Designs</h1>
+  <div>
+  <button type="button"style="margin:5px;" class="btn btn-primary active" routerLink="/products"> Complete Product Design</button>
+  </div>
+  
+  
+  
+  <div class="container">
+      <br><br><br>
+  <table class="table table-hover">
+      <thead class="thead-dark">
+          <th>Design_Name</th>
+          <th>Product</th>
+          <th>Additional Instructions</th>
+          <th>Customer</th>
+          <th>Date Created</th>
+          <th><a routerLink="/design" class="btn btn-outline-success">Create New</a></th>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of designline">
+              <td >{{item.Design_Name}}</td>
+              <td >{{item.Product_Type_ID}}</td>
+              <td >{{item.Additional_Instructions}}</td>
+              <td >{{item.Customer_ID}}</td>
+              <td >{{item.Date_Created}}</td>
+              <td>
+                <a class="btn text-danger" ><i class="fa fa-trash fa-lg"></i></a>
+        
+                 Trigger the modal with a button
+                  <button type="button" class="btn btn-info btn-lg"  data-toggle="modal" data-target="#myModal">Open Modal</button>
+                  </td>
+              
+          </tr>
+      </tbody>
+  </table>
+  
+  </div>
+  <div class="container">
+      <h1>View Designs</h1>
+      <br>
+      <div class="wrapper">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <th>Design ID</th>
+            <th>Design Name</th>
+            <th>Product Type</th>
+            <th>Date Created</th>
+            <th><a routerLink="/products" class="btn btn-outline-success">Create New</a></th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let design of designs">
+              <td>{{design.Design_ID}}</td>
+              <td>{{design.Design_Name}}</td>
+              <td>{{design.Name}}</td>
+              <td>{{design.Date_Created | date}}</td>
+              
+              <td><button class="tfunction" (click)="requestdesigndetails(design.Design_ID)" type="button" class="btn btn-info" data-toggle="modal" data-target="#designdetails">View Design Details</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+      
+      Modal
+     <div id="designdetails"class="modal fade" role="dialog">
+        <form #QRdetails="ngForm">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Design Details</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                    <th>Product Position</th>
+                    <th>Job Type</th>
+                    <th>Width</th>
+                    <th>Height</th>
+                    <th>Image</th>
+                    <th>Text</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let line of designline">
+                      <td>{{line.Template_Position_ID}}</td>
+                      <td>{{line.Job_Type_ID}}</td>
+                      <td>{{line.Width}}</td>
+                      <td>{{line.Height}}</td>
+                      <td> <img  style="height: 100px; width: 100px;" src="{{line.Image}}"></td>
+                      <td>{{line.Text}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" routerLink="/quotationrequest" data-dismiss="modal" class="btn btn-primary">Request Quotation</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>  
+        </form>
+      
+      </div> 
+  
+  

@@ -1,0 +1,403 @@
+
+<div class="wrapper">
+    <div class="main-container">
+        <div class="container">
+            <h1>Complete Product Design</h1>
+
+        <form #form="ngForm" autocomplete="off">
+            <div class="row">
+                <div class="form-group" style="margin: 0 auto; width: 500px;">
+                    <label>Design Name:</label>
+                    <input class="form-control" [(ngModel)]="service.formData.Design_Name" name="Design_Name" #Design_Name="ngModel">
+                </div>
+
+            </div>
+            <br>
+
+            <div class="row" *ngFor="let item of designType">
+                <div class="column" style="margin-top: 20px; margin-left: 40px;">
+                    <h2 class="flex">{{item.Name}}</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{item.ImageString}}" style="width:400px;height:250px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column" style="margin-left: 80px;">
+<div>
+                    <button type="button" class="btn btn-link btn-block"[mat-dialog-close] (click)="show()">Add new
+                        position</button></div>
+                        <form #form="ngForm" autocomplete="off" (submit)="AddDesign(form, null, service.formData.Design_ID)">
+                            <input type="hidden"  name="Design_Line_ID" #Design_Line_ID="ngModel" [(ngModel)]="formData.Design_Line_ID">
+                            <input type="hidden"  name="Design_ID" #Design_ID="ngModel" [(ngModel)]="formData.Design_ID">
+
+                            <div class="form-group">
+                                <label>Position</label>
+                                <select name="Template_Position_ID" #Template_Position_ID="ngModel" [(ngModel)]="formData.Template_Position_ID" class="form-control"
+                                [class.is-invalid]="!isValid && formData.Template_Position_ID==0">
+
+
+                                    <option value="0">-Select-</option>
+                                    <option *ngFor="let item of posList" value="{{item.Template_Position_ID}}">{{item.Template_Position_ID}}</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Job Type</label>
+                                <select name="Job_Type_ID" #Job_Type_ID="ngModel" [(ngModel)]="formData.Job_Type_ID" class="form-control"
+                                [class.is-invalid]="!isValid && formData.Job_Type_ID==0">
+                                    <option value="0">-Select-</option>
+                                    <option *ngFor="let item of jobList" value="{{item.Job_Type_ID}}">{{item.Description}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Text</label>
+                                <input type="text" name="Text" #Text="ngModel" [(ngModel)]="formData.Text" class="form-control">cm
+                            </div>
+
+
+                            <div class="row">
+                            <div class="form-group col-6">
+                                <label>Width</label>
+                                <input type="number" name="Width" #Width="ngModel" [(ngModel)]="formData.Width" class="form-control"
+                                [class.is-invalid]="!isValid && formData.Width==0"
+                               >cm
+                            </div>
+                            <div class="form-group col-6">
+                                <label>Height</label>
+                                <input type="number" name="Height" #Height="ngModel" [(ngModel)]="formData.Height" class="form-control"
+                                [class.is-invalid]="!isValid && formData.Height==0"
+                                >cm
+                            </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Image</label>
+                                <input type="text" name="Image" #Image="ngModel" [(ngModel)]="formData.Image" class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-dark">Submit</button>
+
+
+                            </div>
+                        </form>
+
+                </div>
+            </div>
+
+
+
+
+
+            <table class="table table-borderless">
+                <thead class="thead-light">
+
+                    <th>Position Number</th>
+                    <th>Job Type</th>
+                    <th>Width</th>
+                    <th>Height</th>
+
+                    <th>Text</th>
+                    <th>
+
+                    </th>
+
+                </thead>
+                <tbody>
+                    <tr *ngIf="service.designLine.length==0"
+                        [class.text-danger]="!isValid && service.designLine.length==0">
+                        <td class="font-italic text-center" colspan="7">
+                            No posititions added for this design
+                        </td>
+                    </tr>
+
+                    <tr *ngFor="let item of service.designLine; let i=index">
+                        <td>{{item.Template_Position_ID}}</td>
+                        <td >{{item.Job_Type_ID}}</td>
+                        <td>{{item.Width}}</td>
+                        <td>{{item.Height}}</td>
+                        <td>{{item.Text}}</td>
+                        <td><a class="btn-sm btn-success text-white">Edit</a>
+                            <a class="btn-sm btn-danger text-white ml-1">Delete</a>
+                        </td>
+
+                        <!-- <td>{{item.Template_Position_ID}}</td>
+                           <td>{{item.Job_Type_ID}}</td>
+                           <td>{{item.Width}}</td>
+                           <td>{{item.Height}}</td>
+                           <td>{{item.Image}}</td>
+                           <td>{{item.Text}}</td> -->
+                        <!-- <td><a class="btn-sm btn-success text-white" (click)="AddDesign(i, service.formData.Design_ID)">Edit</a>
+                               <a class="btn-sm btn-danger text-white ml-1" (click)="onDeleteDesignLine(item.Design_Line_ID, i)">Delete</a>
+                           </td> -->
+
+
+                    </tr>
+                </tbody>
+            </table>
+
+            <div >
+                <div class="form-group">
+                    <label>Additional Instructions:</label>
+
+                    <textarea rows="4" cols="50" name="Additional_Instructions" #Additional_Instructions="ngModel"
+                        [(ngModel)]="service.formData.Additional_Instructions" class="form-control">
+                       </textarea></div>
+            </div>
+            <div class="form-group" style="padding: 20px;">
+
+                <button class="submit btn-sm btn-success" style="float: right; width: 200px;" data-toggle="modal" data-target="#myModal">Save</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+      </div>
+      <div class="modal-body">
+        <div class="row" *ngFor="let item of designType">
+            <div class="column" style="margin-top: 20px; margin-left: 40px;">
+                <h2 class="flex">{{item.Name}}</h2>
+                <div class="card">
+                    <div class="card-body"  >
+                        <img src="{{item.ImageString}}" >
+                    </div>
+                </div>
+            </div>
+            <div class="column ml-5 mt-5"><br>
+        Position: 1 <br>
+        Job Type: Emroidery <br>
+        Text: This is a text <br>
+        Width: 2cm <br>
+        Height: 6cm <br><br><br>
+
+        Position: 3 <br>
+        Job Type: Emroidery <br>
+        Text: This is another text <br>
+        Width: 10cm <br>
+        Height: 20cm <br>
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModall" (click)="onSubmit()" >Confirm</button>
+        <button type="button" class="btn btn-link" data-dismiss="modal">Return</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModall">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Request a Quotation?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body flex">
+            <h2 >Product design saved.</h2><br>
+          Would you like to request a quotation on this design?
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary"  data-dismiss="modal" routerLink="/request" >Request</button>
+          <button type="button" class="btn btn-info"  data-dismiss="modal" routerLink="/designs">Go to designs</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+<!--
+
+<h1>Complete Product Design</h1>
+<div class="wrapper">
+    <div class="container" >
+           <form #form="ngForm" autocomplete="off" *ngIf="service.formData" (submit)="onSubmit(form)">
+               <div class="row">
+                   <div class="form-group" style="margin: 0 auto; width: 500px;" >
+                       <label>Design Name:</label>
+                       <input  name="Design_Name" #Design_Name="ngModel" [(ngModel)]="service.formData.Design_Name" class="form-control"
+                       [class.is-invalid]="!isValid && service.formData.Design_Name==''">
+                   </div>
+                   <div class="form-group">
+                       <label hidden>Customer</label>
+                       <select hidden name="Customer_ID" id="Customer_ID" #Customer_ID="ngModel" [(ngModel)]=service.formData.Customer_ID
+                       [class.is-invalid]="!isValid && service.formData.Customer_ID==0">
+                           <option value="0">--Select--</option>
+                           <option *ngFor="let item of cusList" value="{{item.Customer_ID}}">{{item.First_Name}}</option>
+
+                       </select>
+                   </div>
+                   <div class="form-group">
+                       <label hidden>Product_ID</label>
+                       <input hidden type="number" name="Product_Type_ID" #Product_Type_ID="ngModel" [(ngModel)]="service.formData.Product_Type_ID" class="form-control">
+                   </div>
+                   </div>
+                   <br>
+
+                   <div class="row">
+                    <div class="column" style="margin-top: 80px;">
+                        <div class="card">
+                            <div class="card-body">
+                               <img src="{{designType.ImageString}}">
+                            </div>
+                         </div>
+                    </div>
+                    <div class="column" style="margin-left: 100px;">
+
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+    <input type="hidden"  name="Design_Line_ID" #Design_Line_ID="ngModel" [(ngModel)]="formData.Design_Line_ID">
+    <input type="hidden"  name="Design_ID" #Design_ID="ngModel" [(ngModel)]="formData.Design_ID">
+
+    <div class="form-group">
+        <label>Position</label>
+        <select name="Template_Position_ID" #Template_Position_ID="ngModel" [(ngModel)]="formData.Template_Position_ID" class="form-control"
+        [class.is-invalid]="!isValid && formData.Template_Position_ID==0">
+
+
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of posList" value="{{item.Template_Position_ID}}">{{item.Template_Position_ID}}</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Job Type</label>
+        <select name="Job_Type_ID" #Job_Type_ID="ngModel" [(ngModel)]="formData.Job_Type_ID" class="form-control"
+        [class.is-invalid]="!isValid && formData.Job_Type_ID==0">
+            <option value="0">-Select-</option>
+            <option *ngFor="let item of jobList" value="{{item.Job_Type_ID}}">{{item.Description}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Text</label>
+        <input type="text" name="Text" #Text="ngModel" [(ngModel)]="formData.Text" class="form-control">cm
+    </div>
+
+
+    <div class="row">
+    <div class="form-group col-6">
+        <label>Width</label>
+        <input type="number" name="Width" #Width="ngModel" [(ngModel)]="formData.Width" class="form-control"
+        [class.is-invalid]="!isValid && formData.Width==0"
+       >cm
+    </div>
+    <div class="form-group col-6">
+        <label>Height</label>
+        <input type="number" name="Height" #Height="ngModel" [(ngModel)]="formData.Height" class="form-control"
+        [class.is-invalid]="!isValid && formData.Height==0"
+        >cm
+    </div>
+    </div>
+    <div class="form-group">
+        <label>Image</label>
+        <input type="text" name="Image" #Image="ngModel" [(ngModel)]="formData.Image" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <button class="btn-sm btn-success btn-block text-white" >Add to Design</button>
+         <button class="btn-sm btn-success text-white" (click)="AddDesign(null, service.formData.Design_ID)">Add to Design</button>
+
+
+        <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>Add new position</button>
+    </div>
+</form>
+
+                    </div>
+                  </div>
+
+
+
+
+
+               <table class="table table-borderless">
+                   <thead class="thead-light">
+
+                       <th>Position Number</th>
+                       <th>Job Type</th>
+                       <th>Width</th>
+                       <th>Height</th>
+                       <th>Image</th>
+                       <th>Text</th>
+
+                   </thead>
+                   <tbody>
+                       <tr *ngIf="service.designLine.length==0" [class.text-danger]="!isValid && service.designLine.length==0">
+                           <td class="font-italic text-center" colspan="7">
+                               No posititions added for this design
+                           </td>
+                       </tr>
+
+                       <tr *ngFor="let item of service.designLine; let i=index">
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td></td>
+                           <td><a class="btn-sm btn-success text-white">Edit</a>
+                            <a class="btn-sm btn-danger text-white ml-1" >Delete</a>
+                        </td>
+
+                         <td>{{item.Template_Position_ID}}</td>
+                           <td>{{item.Job_Type_ID}}</td>
+                           <td>{{item.Width}}</td>
+                           <td>{{item.Height}}</td>
+                           <td>{{item.Image}}</td>
+                           <td>{{item.Text}}</td> -->
+<!-- <td><a class="btn-sm btn-success text-white" (click)="AddDesign(i, service.formData.Design_ID)">Edit</a>
+                               <a class="btn-sm btn-danger text-white ml-1" (click)="onDeleteDesignLine(item.Design_Line_ID, i)">Delete</a>
+                           </td>
+
+
+                       </tr>
+                   </tbody>
+               </table>
+
+               <div class="col-md-8">
+                   <div class="form-group">
+                       <label>Additional Instructions:</label>
+
+                       <textarea rows="4" cols="50" name="Additional_Instructions" #Additional_Instructions="ngModel" [(ngModel)]="service.formData.Additional_Instructions" class="form-control">
+                       </textarea></div>
+               </div>
+               <div class="form-group">
+                   <button class="submit btn btn-dark">Submit</button>
+               </div>
+           </form>
+           </div>
+</div> -->

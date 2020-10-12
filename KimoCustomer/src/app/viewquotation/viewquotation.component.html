@@ -1,0 +1,64 @@
+<div class="container">
+    <h1>Quotations</h1>
+    <br>
+    <div class="wrapper">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <th>Quotation ID</th>
+          <th>Customer Name</th>
+          <th>Date</th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let quote of quotations">
+            <td>{{quote.Quotation_ID}}</td>
+            <td>{{quote.Customer_ID}}</td>
+            <td>{{quote.Date | date}} </td>
+            <td><button class="tfunction" (click)="requestdetails(quote.Quotation_ID)" type="button" class="btn btn-info" data-toggle="modal" data-target="#quotationdetail">View Quotation</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    
+    <!--Modal-->
+   <!--Modal-->
+    <div id="quotationdetail"class="modal fade" role="dialog">
+      <form #QRdetails="ngForm">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Quotation Details</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered table-striped">
+                <thead>
+                  <th>Quotation ID</th>
+                  <th>Description</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let detail of quotationdetail">
+                    <td>{{detail.Quotation_ID}}</td>
+                    <td>{{detail.Description}}</td>
+                    <td>{{detail.Quantity}}</td>
+                    <td>{{detail.Price}}</td>
+                    <td>{{detail.Total}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal" routerLink="/paypal">Accept Quotation</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>  
+      </form>
+    </div>   
+    

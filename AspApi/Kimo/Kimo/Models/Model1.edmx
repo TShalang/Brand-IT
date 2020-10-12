@@ -1,0 +1,2406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="KIMODBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Company_ID" />
+          </Key>
+          <Property Name="Company_ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" />
+          <Property Name="Address" Type="nchar" MaxLength="50" />
+          <Property Name="Contact_Number" Type="nchar" MaxLength="10" />
+          <Property Name="Email_Address" Type="nchar" MaxLength="50" />
+          <Property Name="Telephone_Number" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Last_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Contact_Number" Type="varchar" MaxLength="50" />
+          <Property Name="Email_Address" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Address_ID" Type="int" />
+          <Property Name="OTP" Type="varchar" MaxLength="50" />
+          <Property Name="verified" Type="bit" />
+        </EntityType>
+        <EntityType Name="Customer_Order">
+          <Key>
+            <PropertyRef Name="Customer_Order_ID" />
+          </Key>
+          <Property Name="Customer_Order_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" />
+          <Property Name="Order_Date" Type="datetime" />
+          <Property Name="Order_Total" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OrderStatus_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer_Order_Line">
+          <Key>
+            <PropertyRef Name="Customer_Order_Line_ID" />
+          </Key>
+          <Property Name="Customer_Order_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Order_ID" Type="int" />
+          <Property Name="Quotation_Line_ID" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="Delivery_ID" />
+          </Key>
+          <Property Name="Delivery_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address_ID" Type="int" />
+          <Property Name="Customer_Order_ID" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="OrderStatus_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Delivery_Address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StreetNumber" Type="int" />
+          <Property Name="StreetName" Type="varchar" MaxLength="150" />
+          <Property Name="Postal_Code" Type="varchar" MaxLength="50" />
+          <Property Name="Province" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Design">
+          <Key>
+            <PropertyRef Name="Design_ID" />
+          </Key>
+          <Property Name="Design_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Type_ID" Type="int" />
+          <Property Name="Design_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Additional_Instructions" Type="varchar(max)" />
+          <Property Name="Customer_ID" Type="int" />
+          <Property Name="Date_Created" Type="date" />
+        </EntityType>
+        <EntityType Name="Design_Line">
+          <Key>
+            <PropertyRef Name="Design_Line_ID" />
+          </Key>
+          <Property Name="Design_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Design_ID" Type="int" />
+          <Property Name="Template_Position_ID" Type="int" />
+          <Property Name="Job_Type_ID" Type="int" />
+          <Property Name="Width" Type="int" />
+          <Property Name="Height" Type="int" />
+          <Property Name="Image" Type="varchar(max)" />
+          <Property Name="Text" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" />
+          <Property Name="Cell_Number" Type="nchar" MaxLength="10" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Job_Type">
+          <Key>
+            <PropertyRef Name="Job_Type_ID" />
+          </Key>
+          <Property Name="Job_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Order_Status">
+          <Key>
+            <PropertyRef Name="OrderStatus_ID" />
+          </Key>
+          <Property Name="OrderStatus_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="PermissionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermissionDescription" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Permission_Line">
+          <Key>
+            <PropertyRef Name="PermissionLineID" />
+          </Key>
+          <Property Name="PermissionLineID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PermissionID" Type="int" />
+          <Property Name="UserRoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="Position_ID" />
+          </Key>
+          <Property Name="Position_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Position_Number" Type="int" />
+        </EntityType>
+        <EntityType Name="Product_Category">
+          <Key>
+            <PropertyRef Name="Product_Category_ID" />
+          </Key>
+          <Property Name="Product_Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product_Size">
+          <Key>
+            <PropertyRef Name="Product_Size_ID" />
+          </Key>
+          <Property Name="Product_Size_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product_Type">
+          <Key>
+            <PropertyRef Name="Product_Type_ID" />
+          </Key>
+          <Property Name="Product_Type_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Category_ID" Type="int" />
+          <Property Name="Template_ID" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ImageString" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Province_ID" />
+          </Key>
+          <Property Name="Province_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Quotation">
+          <Key>
+            <PropertyRef Name="Quotation_ID" />
+          </Key>
+          <Property Name="Quotation_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Additional_Notes" Type="varchar(max)" />
+          <Property Name="Quotation_Status_ID" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Quotation_Line">
+          <Key>
+            <PropertyRef Name="Quotation_Line_ID" />
+          </Key>
+          <Property Name="Quotation_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quotation_ID" Type="int" />
+          <Property Name="Request_Line_ID" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Quotation_Request">
+          <Key>
+            <PropertyRef Name="Request_ID" />
+          </Key>
+          <Property Name="Request_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_ID" Type="int" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Quotation_Request_Line">
+          <Key>
+            <PropertyRef Name="Request_Line_ID" />
+          </Key>
+          <Property Name="Request_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Request_ID" Type="int" />
+          <Property Name="Design_ID" Type="int" />
+          <Property Name="Product_Size_ID" Type="int" />
+          <Property Name="Colour" Type="varchar" MaxLength="50" />
+          <Property Name="Web_Link_ID" Type="int" />
+          <Property Name="Product_Code" Type="varchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Quotation-Status">
+          <Key>
+            <PropertyRef Name="Quotation_Status_ID" />
+          </Key>
+          <Property Name="Quotation_Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Return_Customer_Order">
+          <Key>
+            <PropertyRef Name="Return_Customer_Order_ID" />
+          </Key>
+          <Property Name="Return_Customer_Order_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Reason" Type="varchar(max)" />
+          <Property Name="Product" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Return_Customer_Order_Line">
+          <Key>
+            <PropertyRef Name="Return_Line_ID" />
+          </Key>
+          <Property Name="Return_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Return_Customer_Order_ID" Type="int" />
+          <Property Name="Customer_Order_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Supplier_Name" Type="varchar" MaxLength="50" />
+          <Property Name="Contact_Number" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Web_Link_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Supplier_Order">
+          <Key>
+            <PropertyRef Name="Supplier_Order_ID" />
+          </Key>
+          <Property Name="Supplier_Order_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Supplier_ID" Type="int" />
+          <Property Name="Supplier_Order_Status_ID" Type="int" />
+          <Property Name="Quotation_ID" Type="int" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Supplier_Order_Line">
+          <Key>
+            <PropertyRef Name="Supplier_Order_Line_ID" />
+          </Key>
+          <Property Name="Supplier_Order_Line_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Supplier_Order_ID" Type="int" />
+          <Property Name="Product_Type_ID" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="Supplier_Order_Status">
+          <Key>
+            <PropertyRef Name="Supplier_Order_Status_ID" />
+          </Key>
+          <Property Name="Supplier_Order_Status_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="char" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="Template_ID" />
+          </Key>
+          <Property Name="Template_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="ImagePath" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Template_Position">
+          <Key>
+            <PropertyRef Name="Template_Position_ID" />
+          </Key>
+          <Property Name="Template_Position_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Position_ID" Type="int" />
+          <Property Name="Template_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRoleID" Type="int" />
+          <Property Name="UserPassword" Type="varchar" MaxLength="65" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" />
+          <Property Name="UserPasswordChangeRequest" Type="bit" />
+          <Property Name="ResetOTP" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User_Role">
+          <Key>
+            <PropertyRef Name="UserRoleID" />
+          </Key>
+          <Property Name="UserRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserRoleDescription" Type="varchar" MaxLength="50" />
+          <Property Name="UserRoleName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Web_Link">
+          <Key>
+            <PropertyRef Name="Web_Link_ID" />
+          </Key>
+          <Property Name="Web_Link_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Web_Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Web_Address" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Customer_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Order_Line_Customer_Order">
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="0..1" />
+          <End Role="Customer_Order_Line" Type="Self.Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Order">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order_Line">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Order_Line_Quotation_Line">
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="0..1" />
+          <End Role="Customer_Order_Line" Type="Self.Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Line">
+              <PropertyRef Name="Quotation_Line_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order_Line">
+              <PropertyRef Name="Quotation_Line_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Order_Order_Status">
+          <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Status">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Customer_Order">
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="0..1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Order">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Delivery_Address">
+          <End Role="Delivery_Address" Type="Self.Delivery_Address" Multiplicity="0..1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delivery_Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Order_Status">
+          <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Status">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Design" Type="Self.Design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Design">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Line_Design">
+          <End Role="Design" Type="Self.Design" Multiplicity="0..1" />
+          <End Role="Design_Line" Type="Self.Design_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="Design_ID" />
+            </Principal>
+            <Dependent Role="Design_Line">
+              <PropertyRef Name="Design_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Line_Job_Type">
+          <End Role="Job_Type" Type="Self.Job_Type" Multiplicity="0..1" />
+          <End Role="Design_Line" Type="Self.Design_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Type">
+              <PropertyRef Name="Job_Type_ID" />
+            </Principal>
+            <Dependent Role="Design_Line">
+              <PropertyRef Name="Job_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Line_Template_Position">
+          <End Role="Template_Position" Type="Self.Template_Position" Multiplicity="0..1" />
+          <End Role="Design_Line" Type="Self.Design_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Position">
+              <PropertyRef Name="Template_Position_ID" />
+            </Principal>
+            <Dependent Role="Design_Line">
+              <PropertyRef Name="Template_Position_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Product_Type">
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="0..1" />
+          <End Role="Design" Type="Self.Design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Type">
+              <PropertyRef Name="Product_Type_ID" />
+            </Principal>
+            <Dependent Role="Design">
+              <PropertyRef Name="Product_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Line_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_Line" Type="Self.Permission_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionID" />
+            </Principal>
+            <Dependent Role="Permission_Line">
+              <PropertyRef Name="PermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Line_User_Role">
+          <End Role="User_Role" Type="Self.User_Role" Multiplicity="0..1" />
+          <End Role="Permission_Line" Type="Self.Permission_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Role">
+              <PropertyRef Name="UserRoleID" />
+            </Principal>
+            <Dependent Role="Permission_Line">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Type__Product_Category">
+          <End Role="Product_Category" Type="Self.Product_Category" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Category">
+              <PropertyRef Name="Product_Category_ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="Product_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Type__Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Template_ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="Template_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Quotation" Type="Self.Quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Quotation">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Line_Quotation">
+          <End Role="Quotation" Type="Self.Quotation" Multiplicity="0..1" />
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation">
+              <PropertyRef Name="Quotation_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Line">
+              <PropertyRef Name="Quotation_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Line_Quotation_Request_Line">
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="0..1" />
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Request_Line">
+              <PropertyRef Name="Request_Line_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Line">
+              <PropertyRef Name="Request_Line_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Quotation-Status">
+          <End Role="Quotation-Status" Type="Self.Quotation-Status" Multiplicity="0..1" />
+          <End Role="Quotation" Type="Self.Quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation-Status">
+              <PropertyRef Name="Quotation_Status_ID" />
+            </Principal>
+            <Dependent Role="Quotation">
+              <PropertyRef Name="Quotation_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Quotation_Request" Type="Self.Quotation_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Design">
+          <End Role="Design" Type="Self.Design" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="Design_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Design_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Product_Size">
+          <End Role="Product_Size" Type="Self.Product_Size" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Size">
+              <PropertyRef Name="Product_Size_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Product_Size_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Quotation_Request">
+          <End Role="Quotation_Request" Type="Self.Quotation_Request" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Request">
+              <PropertyRef Name="Request_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Request_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Web_Link">
+          <End Role="Web_Link" Type="Self.Web_Link" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Web_Link">
+              <PropertyRef Name="Web_Link_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Web_Link_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Customer_Order_Line_Customer_Order_Line">
+          <End Role="Customer_Order_Line" Type="Self.Customer_Order_Line" Multiplicity="0..1" />
+          <End Role="Return_Customer_Order_Line" Type="Self.Return_Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Order_Line">
+              <PropertyRef Name="Customer_Order_Line_ID" />
+            </Principal>
+            <Dependent Role="Return_Customer_Order_Line">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Customer_Order_Line_Return_Customer_Order">
+          <End Role="Return_Customer_Order" Type="Self.Return_Customer_Order" Multiplicity="0..1" />
+          <End Role="Return_Customer_Order_Line" Type="Self.Return_Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Return_Customer_Order">
+              <PropertyRef Name="Return_Customer_Order_ID" />
+            </Principal>
+            <Dependent Role="Return_Customer_Order_Line">
+              <PropertyRef Name="Return_Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Line_Product_Type">
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="0..1" />
+          <End Role="Supplier_Order_Line" Type="Self.Supplier_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Type">
+              <PropertyRef Name="Product_Type_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order_Line">
+              <PropertyRef Name="Product_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Line_Supplier_Order">
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="0..1" />
+          <End Role="Supplier_Order_Line" Type="Self.Supplier_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier_Order">
+              <PropertyRef Name="Supplier_Order_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order_Line">
+              <PropertyRef Name="Supplier_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Quotation_Line">
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="1" />
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Line">
+              <PropertyRef Name="Quotation_Line_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order">
+              <PropertyRef Name="Supplier_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order">
+              <PropertyRef Name="Supplier_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Supplier_Order_Status">
+          <End Role="Supplier_Order_Status" Type="Self.Supplier_Order_Status" Multiplicity="0..1" />
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier_Order_Status">
+              <PropertyRef Name="Supplier_Order_Status_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order">
+              <PropertyRef Name="Supplier_Order_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Web_Link">
+          <End Role="Web_Link" Type="Self.Web_Link" Multiplicity="0..1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Web_Link">
+              <PropertyRef Name="Web_Link_ID" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="Web_Link_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Position_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Template_Position" Type="Self.Template_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="Position_ID" />
+            </Principal>
+            <Dependent Role="Template_Position">
+              <PropertyRef Name="Position_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Position_Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="0..1" />
+          <End Role="Template_Position" Type="Self.Template_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Template_ID" />
+            </Principal>
+            <Dependent Role="Template_Position">
+              <PropertyRef Name="Template_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_User_Role">
+          <End Role="User_Role" Type="Self.User_Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Role">
+              <PropertyRef Name="UserRoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KIMODBModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_Order" EntityType="Self.Customer_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer_Order_Line" EntityType="Self.Customer_Order_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delivery" EntityType="Self.Delivery" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Delivery_Address" EntityType="Self.Delivery_Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Design" EntityType="Self.Design" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Design_Line" EntityType="Self.Design_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job_Type" EntityType="Self.Job_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Status" EntityType="Self.Order_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission_Line" EntityType="Self.Permission_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Category" EntityType="Self.Product_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Size" EntityType="Self.Product_Size" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product_Type" EntityType="Self.Product_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quotation" EntityType="Self.Quotation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quotation_Line" EntityType="Self.Quotation_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quotation_Request" EntityType="Self.Quotation_Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quotation_Request_Line" EntityType="Self.Quotation_Request_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Quotation-Status" EntityType="Self.Quotation-Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Return_Customer_Order" EntityType="Self.Return_Customer_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Return_Customer_Order_Line" EntityType="Self.Return_Customer_Order_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier_Order" EntityType="Self.Supplier_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier_Order_Line" EntityType="Self.Supplier_Order_Line" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier_Order_Status" EntityType="Self.Supplier_Order_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Template" EntityType="Self.Template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Template_Position" EntityType="Self.Template_Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User_Role" EntityType="Self.User_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Web_Link" EntityType="Self.Web_Link" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customer_Order_Customer" Association="Self.FK_Customer_Order_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Order_Line_Customer_Order" Association="Self.FK_Customer_Order_Line_Customer_Order">
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+            <End Role="Customer_Order_Line" EntitySet="Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Order_Line_Quotation_Line" Association="Self.FK_Customer_Order_Line_Quotation_Line">
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+            <End Role="Customer_Order_Line" EntitySet="Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Order_Order_Status" Association="Self.FK_Customer_Order_Order_Status">
+            <End Role="Order_Status" EntitySet="Order_Status" />
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_User" Association="Self.FK_Customer_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Customer_Order" Association="Self.FK_Delivery_Customer_Order">
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Delivery_Address" Association="Self.FK_Delivery_Delivery_Address">
+            <End Role="Delivery_Address" EntitySet="Delivery_Address" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Order_Status" Association="Self.FK_Delivery_Order_Status">
+            <End Role="Order_Status" EntitySet="Order_Status" />
+            <End Role="Delivery" EntitySet="Delivery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Customer" Association="Self.FK_Design_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Design" EntitySet="Design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Line_Design" Association="Self.FK_Design_Line_Design">
+            <End Role="Design" EntitySet="Design" />
+            <End Role="Design_Line" EntitySet="Design_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Line_Job_Type" Association="Self.FK_Design_Line_Job_Type">
+            <End Role="Job_Type" EntitySet="Job_Type" />
+            <End Role="Design_Line" EntitySet="Design_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Line_Template_Position" Association="Self.FK_Design_Line_Template_Position">
+            <End Role="Template_Position" EntitySet="Template_Position" />
+            <End Role="Design_Line" EntitySet="Design_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Product_Type" Association="Self.FK_Design_Product_Type">
+            <End Role="Product_Type" EntitySet="Product_Type" />
+            <End Role="Design" EntitySet="Design" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Line_Permission" Association="Self.FK_Permission_Line_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="Permission_Line" EntitySet="Permission_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Line_User_Role" Association="Self.FK_Permission_Line_User_Role">
+            <End Role="User_Role" EntitySet="User_Role" />
+            <End Role="Permission_Line" EntitySet="Permission_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Type__Product_Category" Association="Self.FK_Product_Type__Product_Category">
+            <End Role="Product_Category" EntitySet="Product_Category" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Type__Template" Association="Self.FK_Product_Type__Template">
+            <End Role="Template" EntitySet="Template" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Customer" Association="Self.FK_Quotation_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Quotation" EntitySet="Quotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Line_Quotation" Association="Self.FK_Quotation_Line_Quotation">
+            <End Role="Quotation" EntitySet="Quotation" />
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Line_Quotation_Request_Line" Association="Self.FK_Quotation_Line_Quotation_Request_Line">
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Quotation-Status" Association="Self.FK_Quotation_Quotation-Status">
+            <End Role="Quotation-Status" EntitySet="Quotation-Status" />
+            <End Role="Quotation" EntitySet="Quotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Customer" Association="Self.FK_Quotation_Request_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Quotation_Request" EntitySet="Quotation_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Design" Association="Self.FK_Quotation_Request_Line_Design">
+            <End Role="Design" EntitySet="Design" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Product_Size" Association="Self.FK_Quotation_Request_Line_Product_Size">
+            <End Role="Product_Size" EntitySet="Product_Size" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Quotation_Request" Association="Self.FK_Quotation_Request_Line_Quotation_Request">
+            <End Role="Quotation_Request" EntitySet="Quotation_Request" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Web_Link" Association="Self.FK_Quotation_Request_Line_Web_Link">
+            <End Role="Web_Link" EntitySet="Web_Link" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Customer_Order_Line_Customer_Order_Line" Association="Self.FK_Return_Customer_Order_Line_Customer_Order_Line">
+            <End Role="Customer_Order_Line" EntitySet="Customer_Order_Line" />
+            <End Role="Return_Customer_Order_Line" EntitySet="Return_Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Customer_Order_Line_Return_Customer_Order" Association="Self.FK_Return_Customer_Order_Line_Return_Customer_Order">
+            <End Role="Return_Customer_Order" EntitySet="Return_Customer_Order" />
+            <End Role="Return_Customer_Order_Line" EntitySet="Return_Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Line_Product_Type" Association="Self.FK_Supplier_Order_Line_Product_Type">
+            <End Role="Product_Type" EntitySet="Product_Type" />
+            <End Role="Supplier_Order_Line" EntitySet="Supplier_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Line_Supplier_Order" Association="Self.FK_Supplier_Order_Line_Supplier_Order">
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+            <End Role="Supplier_Order_Line" EntitySet="Supplier_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Quotation_Line" Association="Self.FK_Supplier_Order_Quotation_Line">
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Supplier" Association="Self.FK_Supplier_Order_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Supplier_Order_Status" Association="Self.FK_Supplier_Order_Supplier_Order_Status">
+            <End Role="Supplier_Order_Status" EntitySet="Supplier_Order_Status" />
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Web_Link" Association="Self.FK_Supplier_Web_Link">
+            <End Role="Web_Link" EntitySet="Web_Link" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Position_Position" Association="Self.FK_Template_Position_Position">
+            <End Role="Position" EntitySet="Position" />
+            <End Role="Template_Position" EntitySet="Template_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Position_Template" Association="Self.FK_Template_Position_Template">
+            <End Role="Template" EntitySet="Template" />
+            <End Role="Template_Position" EntitySet="Template_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_User_Role" Association="Self.FK_User_User_Role">
+            <End Role="User_Role" EntitySet="User_Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KIMODBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Company_ID" />
+          </Key>
+          <Property Name="Company_ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Contact_Number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email_Address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Telephone_Number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Last_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="OTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="verified" Type="Boolean" />
+          <NavigationProperty Name="Customer_Order" Relationship="Self.FK_Customer_Order_Customer" FromRole="Customer" ToRole="Customer_Order" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Customer_User" FromRole="Customer" ToRole="User" />
+          <NavigationProperty Name="Designs" Relationship="Self.FK_Design_Customer" FromRole="Customer" ToRole="Design" />
+          <NavigationProperty Name="Quotations" Relationship="Self.FK_Quotation_Customer" FromRole="Customer" ToRole="Quotation" />
+          <NavigationProperty Name="Quotation_Request" Relationship="Self.FK_Quotation_Request_Customer" FromRole="Customer" ToRole="Quotation_Request" />
+        </EntityType>
+        <EntityType Name="Customer_Order">
+          <Key>
+            <PropertyRef Name="Customer_Order_ID" />
+          </Key>
+          <Property Name="Customer_Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <Property Name="Order_Date" Type="DateTime" Precision="3" />
+          <Property Name="Order_Total" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OrderStatus_ID" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Order_Customer" FromRole="Customer_Order" ToRole="Customer" />
+          <NavigationProperty Name="Customer_Order_Line" Relationship="Self.FK_Customer_Order_Line_Customer_Order" FromRole="Customer_Order" ToRole="Customer_Order_Line" />
+          <NavigationProperty Name="Order_Status" Relationship="Self.FK_Customer_Order_Order_Status" FromRole="Customer_Order" ToRole="Order_Status" />
+          <NavigationProperty Name="Deliveries" Relationship="Self.FK_Delivery_Customer_Order" FromRole="Customer_Order" ToRole="Delivery" />
+        </EntityType>
+        <EntityType Name="Customer_Order_Line">
+          <Key>
+            <PropertyRef Name="Customer_Order_Line_ID" />
+          </Key>
+          <Property Name="Customer_Order_Line_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Order_ID" Type="Int32" />
+          <Property Name="Quotation_Line_ID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Customer_Order" Relationship="Self.FK_Customer_Order_Line_Customer_Order" FromRole="Customer_Order_Line" ToRole="Customer_Order" />
+          <NavigationProperty Name="Quotation_Line" Relationship="Self.FK_Customer_Order_Line_Quotation_Line" FromRole="Customer_Order_Line" ToRole="Quotation_Line" />
+          <NavigationProperty Name="Return_Customer_Order_Line" Relationship="Self.FK_Return_Customer_Order_Line_Customer_Order_Line" FromRole="Customer_Order_Line" ToRole="Return_Customer_Order_Line" />
+        </EntityType>
+        <EntityType Name="Delivery">
+          <Key>
+            <PropertyRef Name="Delivery_ID" />
+          </Key>
+          <Property Name="Delivery_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address_ID" Type="Int32" />
+          <Property Name="Customer_Order_ID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="OrderStatus_ID" Type="Int32" />
+          <NavigationProperty Name="Customer_Order" Relationship="Self.FK_Delivery_Customer_Order" FromRole="Delivery" ToRole="Customer_Order" />
+          <NavigationProperty Name="Delivery_Address" Relationship="Self.FK_Delivery_Delivery_Address" FromRole="Delivery" ToRole="Delivery_Address" />
+          <NavigationProperty Name="Order_Status" Relationship="Self.FK_Delivery_Order_Status" FromRole="Delivery" ToRole="Order_Status" />
+        </EntityType>
+        <EntityType Name="Delivery_Address">
+          <Key>
+            <PropertyRef Name="Address_ID" />
+          </Key>
+          <Property Name="Address_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StreetNumber" Type="Int32" />
+          <Property Name="StreetName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Postal_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Deliveries" Relationship="Self.FK_Delivery_Delivery_Address" FromRole="Delivery_Address" ToRole="Delivery" />
+        </EntityType>
+        <EntityType Name="Design">
+          <Key>
+            <PropertyRef Name="Design_ID" />
+          </Key>
+          <Property Name="Design_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Type_ID" Type="Int32" />
+          <Property Name="Design_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Additional_Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <Property Name="Date_Created" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Design_Customer" FromRole="Design" ToRole="Customer" />
+          <NavigationProperty Name="Design_Line" Relationship="Self.FK_Design_Line_Design" FromRole="Design" ToRole="Design_Line" />
+          <NavigationProperty Name="Product_Type" Relationship="Self.FK_Design_Product_Type" FromRole="Design" ToRole="Product_Type" />
+          <NavigationProperty Name="Quotation_Request_Line" Relationship="Self.FK_Quotation_Request_Line_Design" FromRole="Design" ToRole="Quotation_Request_Line" />
+        </EntityType>
+        <EntityType Name="Design_Line">
+          <Key>
+            <PropertyRef Name="Design_Line_ID" />
+          </Key>
+          <Property Name="Design_Line_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Design_ID" Type="Int32" />
+          <Property Name="Template_Position_ID" Type="Int32" />
+          <Property Name="Job_Type_ID" Type="Int32" />
+          <Property Name="Width" Type="Int32" />
+          <Property Name="Height" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Design" Relationship="Self.FK_Design_Line_Design" FromRole="Design_Line" ToRole="Design" />
+          <NavigationProperty Name="Job_Type" Relationship="Self.FK_Design_Line_Job_Type" FromRole="Design_Line" ToRole="Job_Type" />
+          <NavigationProperty Name="Template_Position" Relationship="Self.FK_Design_Line_Template_Position" FromRole="Design_Line" ToRole="Template_Position" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="Employee_ID" />
+          </Key>
+          <Property Name="Employee_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cell_Number" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employee_User" FromRole="Employee" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Job_Type">
+          <Key>
+            <PropertyRef Name="Job_Type_ID" />
+          </Key>
+          <Property Name="Job_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Design_Line" Relationship="Self.FK_Design_Line_Job_Type" FromRole="Job_Type" ToRole="Design_Line" />
+        </EntityType>
+        <EntityType Name="Order_Status">
+          <Key>
+            <PropertyRef Name="OrderStatus_ID" />
+          </Key>
+          <Property Name="OrderStatus_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customer_Order" Relationship="Self.FK_Customer_Order_Order_Status" FromRole="Order_Status" ToRole="Customer_Order" />
+          <NavigationProperty Name="Deliveries" Relationship="Self.FK_Delivery_Order_Status" FromRole="Order_Status" ToRole="Delivery" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PermissionID" />
+          </Key>
+          <Property Name="PermissionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermissionDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Permission_Line" Relationship="Self.FK_Permission_Line_Permission" FromRole="Permission" ToRole="Permission_Line" />
+        </EntityType>
+        <EntityType Name="Permission_Line">
+          <Key>
+            <PropertyRef Name="PermissionLineID" />
+          </Key>
+          <Property Name="PermissionLineID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PermissionID" Type="Int32" />
+          <Property Name="UserRoleID" Type="Int32" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_Permission_Line_Permission" FromRole="Permission_Line" ToRole="Permission" />
+          <NavigationProperty Name="User_Role" Relationship="Self.FK_Permission_Line_User_Role" FromRole="Permission_Line" ToRole="User_Role" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="Position_ID" />
+          </Key>
+          <Property Name="Position_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position_Number" Type="Int32" />
+          <NavigationProperty Name="Template_Position" Relationship="Self.FK_Template_Position_Position" FromRole="Position" ToRole="Template_Position" />
+        </EntityType>
+        <EntityType Name="Product_Category">
+          <Key>
+            <PropertyRef Name="Product_Category_ID" />
+          </Key>
+          <Property Name="Product_Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product_Type" Relationship="Self.FK_Product_Type__Product_Category" FromRole="Product_Category" ToRole="Product_Type" />
+        </EntityType>
+        <EntityType Name="Product_Size">
+          <Key>
+            <PropertyRef Name="Product_Size_ID" />
+          </Key>
+          <Property Name="Product_Size_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Quotation_Request_Line" Relationship="Self.FK_Quotation_Request_Line_Product_Size" FromRole="Product_Size" ToRole="Quotation_Request_Line" />
+        </EntityType>
+        <EntityType Name="Product_Type">
+          <Key>
+            <PropertyRef Name="Product_Type_ID" />
+          </Key>
+          <Property Name="Product_Type_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Category_ID" Type="Int32" />
+          <Property Name="Template_ID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImageString" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Designs" Relationship="Self.FK_Design_Product_Type" FromRole="Product_Type" ToRole="Design" />
+          <NavigationProperty Name="Product_Category" Relationship="Self.FK_Product_Type__Product_Category" FromRole="Product_Type" ToRole="Product_Category" />
+          <NavigationProperty Name="Template" Relationship="Self.FK_Product_Type__Template" FromRole="Product_Type" ToRole="Template" />
+          <NavigationProperty Name="Supplier_Order_Line" Relationship="Self.FK_Supplier_Order_Line_Product_Type" FromRole="Product_Type" ToRole="Supplier_Order_Line" />
+        </EntityType>
+        <EntityType Name="Province">
+          <Key>
+            <PropertyRef Name="Province_ID" />
+          </Key>
+          <Property Name="Province_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Quotation">
+          <Key>
+            <PropertyRef Name="Quotation_ID" />
+          </Key>
+          <Property Name="Quotation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Additional_Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Quotation_Status_ID" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Quotation_Customer" FromRole="Quotation" ToRole="Customer" />
+          <NavigationProperty Name="Quotation_Line" Relationship="Self.FK_Quotation_Line_Quotation" FromRole="Quotation" ToRole="Quotation_Line" />
+          <NavigationProperty Name="Quotation_Status" Relationship="Self.FK_Quotation_Quotation_Status" FromRole="Quotation" ToRole="Quotation_Status" />
+        </EntityType>
+        <EntityType Name="Quotation_Line">
+          <Key>
+            <PropertyRef Name="Quotation_Line_ID" />
+          </Key>
+          <Property Name="Quotation_Line_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quotation_ID" Type="Int32" />
+          <Property Name="Request_Line_ID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Customer_Order_Line" Relationship="Self.FK_Customer_Order_Line_Quotation_Line" FromRole="Quotation_Line" ToRole="Customer_Order_Line" />
+          <NavigationProperty Name="Quotation" Relationship="Self.FK_Quotation_Line_Quotation" FromRole="Quotation_Line" ToRole="Quotation" />
+          <NavigationProperty Name="Quotation_Request_Line" Relationship="Self.FK_Quotation_Line_Quotation_Request_Line" FromRole="Quotation_Line" ToRole="Quotation_Request_Line" />
+          <NavigationProperty Name="Supplier_Order" Relationship="Self.FK_Supplier_Order_Quotation_Line" FromRole="Quotation_Line" ToRole="Supplier_Order" />
+        </EntityType>
+        <EntityType Name="Quotation_Request">
+          <Key>
+            <PropertyRef Name="Request_ID" />
+          </Key>
+          <Property Name="Request_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Quotation_Request_Customer" FromRole="Quotation_Request" ToRole="Customer" />
+          <NavigationProperty Name="Quotation_Request_Line" Relationship="Self.FK_Quotation_Request_Line_Quotation_Request" FromRole="Quotation_Request" ToRole="Quotation_Request_Line" />
+        </EntityType>
+        <EntityType Name="Quotation_Request_Line">
+          <Key>
+            <PropertyRef Name="Request_Line_ID" />
+          </Key>
+          <Property Name="Request_Line_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Request_ID" Type="Int32" />
+          <Property Name="Design_ID" Type="Int32" />
+          <Property Name="Product_Size_ID" Type="Int32" />
+          <Property Name="Colour" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Web_Link_ID" Type="Int32" />
+          <Property Name="Product_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Design" Relationship="Self.FK_Quotation_Request_Line_Design" FromRole="Quotation_Request_Line" ToRole="Design" />
+          <NavigationProperty Name="Product_Size" Relationship="Self.FK_Quotation_Request_Line_Product_Size" FromRole="Quotation_Request_Line" ToRole="Product_Size" />
+          <NavigationProperty Name="Quotation_Line" Relationship="Self.FK_Quotation_Line_Quotation_Request_Line" FromRole="Quotation_Request_Line" ToRole="Quotation_Line" />
+          <NavigationProperty Name="Quotation_Request" Relationship="Self.FK_Quotation_Request_Line_Quotation_Request" FromRole="Quotation_Request_Line" ToRole="Quotation_Request" />
+          <NavigationProperty Name="Web_Link" Relationship="Self.FK_Quotation_Request_Line_Web_Link" FromRole="Quotation_Request_Line" ToRole="Web_Link" />
+        </EntityType>
+        <EntityType Name="Quotation_Status">
+          <Key>
+            <PropertyRef Name="Quotation_Status_ID" />
+          </Key>
+          <Property Name="Quotation_Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Quotations" Relationship="Self.FK_Quotation_Quotation_Status" FromRole="Quotation_Status" ToRole="Quotation" />
+        </EntityType>
+        <EntityType Name="Return_Customer_Order">
+          <Key>
+            <PropertyRef Name="Return_Customer_Order_ID" />
+          </Key>
+          <Property Name="Return_Customer_Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Product" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Return_Customer_Order_Line" Relationship="Self.FK_Return_Customer_Order_Line_Return_Customer_Order" FromRole="Return_Customer_Order" ToRole="Return_Customer_Order_Line" />
+        </EntityType>
+        <EntityType Name="Return_Customer_Order_Line">
+          <Key>
+            <PropertyRef Name="Return_Line_ID" />
+          </Key>
+          <Property Name="Return_Line_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Return_Customer_Order_ID" Type="Int32" />
+          <Property Name="Customer_Order_ID" Type="Int32" />
+          <NavigationProperty Name="Customer_Order_Line" Relationship="Self.FK_Return_Customer_Order_Line_Customer_Order_Line" FromRole="Return_Customer_Order_Line" ToRole="Customer_Order_Line" />
+          <NavigationProperty Name="Return_Customer_Order" Relationship="Self.FK_Return_Customer_Order_Line_Return_Customer_Order" FromRole="Return_Customer_Order_Line" ToRole="Return_Customer_Order" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Supplier_ID" />
+          </Key>
+          <Property Name="Supplier_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Supplier_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contact_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Web_Link_ID" Type="Int32" />
+          <NavigationProperty Name="Supplier_Order" Relationship="Self.FK_Supplier_Order_Supplier" FromRole="Supplier" ToRole="Supplier_Order" />
+          <NavigationProperty Name="Web_Link" Relationship="Self.FK_Supplier_Web_Link" FromRole="Supplier" ToRole="Web_Link" />
+        </EntityType>
+        <EntityType Name="Supplier_Order">
+          <Key>
+            <PropertyRef Name="Supplier_Order_ID" />
+          </Key>
+          <Property Name="Supplier_Order_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Supplier_ID" Type="Int32" />
+          <Property Name="Supplier_Order_Status_ID" Type="Int32" />
+          <Property Name="Quotation_ID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Quotation_Line" Relationship="Self.FK_Supplier_Order_Quotation_Line" FromRole="Supplier_Order" ToRole="Quotation_Line" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Supplier_Order_Supplier" FromRole="Supplier_Order" ToRole="Supplier" />
+          <NavigationProperty Name="Supplier_Order_Line" Relationship="Self.FK_Supplier_Order_Line_Supplier_Order" FromRole="Supplier_Order" ToRole="Supplier_Order_Line" />
+          <NavigationProperty Name="Supplier_Order_Status" Relationship="Self.FK_Supplier_Order_Supplier_Order_Status" FromRole="Supplier_Order" ToRole="Supplier_Order_Status" />
+        </EntityType>
+        <EntityType Name="Supplier_Order_Line">
+          <Key>
+            <PropertyRef Name="Supplier_Order_Line_ID" />
+          </Key>
+          <Property Name="Supplier_Order_Line_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Supplier_Order_ID" Type="Int32" />
+          <Property Name="Product_Type_ID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="Product_Type" Relationship="Self.FK_Supplier_Order_Line_Product_Type" FromRole="Supplier_Order_Line" ToRole="Product_Type" />
+          <NavigationProperty Name="Supplier_Order" Relationship="Self.FK_Supplier_Order_Line_Supplier_Order" FromRole="Supplier_Order_Line" ToRole="Supplier_Order" />
+        </EntityType>
+        <EntityType Name="Supplier_Order_Status">
+          <Key>
+            <PropertyRef Name="Supplier_Order_Status_ID" />
+          </Key>
+          <Property Name="Supplier_Order_Status_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Supplier_Order" Relationship="Self.FK_Supplier_Order_Supplier_Order_Status" FromRole="Supplier_Order_Status" ToRole="Supplier_Order" />
+        </EntityType>
+        <EntityType Name="Template">
+          <Key>
+            <PropertyRef Name="Template_ID" />
+          </Key>
+          <Property Name="Template_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Product_Type" Relationship="Self.FK_Product_Type__Template" FromRole="Template" ToRole="Product_Type" />
+          <NavigationProperty Name="Template_Position" Relationship="Self.FK_Template_Position_Template" FromRole="Template" ToRole="Template_Position" />
+        </EntityType>
+        <EntityType Name="Template_Position">
+          <Key>
+            <PropertyRef Name="Template_Position_ID" />
+          </Key>
+          <Property Name="Template_Position_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position_ID" Type="Int32" />
+          <Property Name="Template_ID" Type="Int32" />
+          <NavigationProperty Name="Design_Line" Relationship="Self.FK_Design_Line_Template_Position" FromRole="Template_Position" ToRole="Design_Line" />
+          <NavigationProperty Name="Position" Relationship="Self.FK_Template_Position_Position" FromRole="Template_Position" ToRole="Position" />
+          <NavigationProperty Name="Template" Relationship="Self.FK_Template_Position_Template" FromRole="Template_Position" ToRole="Template" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRoleID" Type="Int32" />
+          <Property Name="UserPassword" Type="String" MaxLength="65" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UserPasswordChangeRequest" Type="Boolean" />
+          <Property Name="ResetOTP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_User" FromRole="User" ToRole="Customer" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_User" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="User_Role" Relationship="Self.FK_User_User_Role" FromRole="User" ToRole="User_Role" />
+        </EntityType>
+        <EntityType Name="User_Role">
+          <Key>
+            <PropertyRef Name="UserRoleID" />
+          </Key>
+          <Property Name="UserRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserRoleDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserRoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Permission_Line" Relationship="Self.FK_Permission_Line_User_Role" FromRole="User_Role" ToRole="Permission_Line" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_User_User_Role" FromRole="User_Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Web_Link">
+          <Key>
+            <PropertyRef Name="Web_Link_ID" />
+          </Key>
+          <Property Name="Web_Link_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Web_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Web_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Quotation_Request_Line" Relationship="Self.FK_Quotation_Request_Line_Web_Link" FromRole="Web_Link" ToRole="Quotation_Request_Line" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Supplier_Web_Link" FromRole="Web_Link" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="FK_Customer_Order_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Design" Type="Self.Design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Design">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Quotation" Type="Self.Quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Quotation">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Quotation_Request" Type="Self.Quotation_Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Order_Line_Customer_Order">
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="0..1" />
+          <End Role="Customer_Order_Line" Type="Self.Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Order">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order_Line">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Order_Order_Status">
+          <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Status">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Customer_Order">
+          <End Role="Customer_Order" Type="Self.Customer_Order" Multiplicity="0..1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Order">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Order_Line_Quotation_Line">
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="0..1" />
+          <End Role="Customer_Order_Line" Type="Self.Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Line">
+              <PropertyRef Name="Quotation_Line_ID" />
+            </Principal>
+            <Dependent Role="Customer_Order_Line">
+              <PropertyRef Name="Quotation_Line_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Customer_Order_Line_Customer_Order_Line">
+          <End Role="Customer_Order_Line" Type="Self.Customer_Order_Line" Multiplicity="0..1" />
+          <End Role="Return_Customer_Order_Line" Type="Self.Return_Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Order_Line">
+              <PropertyRef Name="Customer_Order_Line_ID" />
+            </Principal>
+            <Dependent Role="Return_Customer_Order_Line">
+              <PropertyRef Name="Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Delivery_Address">
+          <End Role="Delivery_Address" Type="Self.Delivery_Address" Multiplicity="0..1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Delivery_Address">
+              <PropertyRef Name="Address_ID" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="Address_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Delivery_Order_Status">
+          <End Role="Order_Status" Type="Self.Order_Status" Multiplicity="0..1" />
+          <End Role="Delivery" Type="Self.Delivery" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order_Status">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Principal>
+            <Dependent Role="Delivery">
+              <PropertyRef Name="OrderStatus_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Line_Design">
+          <End Role="Design" Type="Self.Design" Multiplicity="0..1" />
+          <End Role="Design_Line" Type="Self.Design_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="Design_ID" />
+            </Principal>
+            <Dependent Role="Design_Line">
+              <PropertyRef Name="Design_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Product_Type">
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="0..1" />
+          <End Role="Design" Type="Self.Design" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Type">
+              <PropertyRef Name="Product_Type_ID" />
+            </Principal>
+            <Dependent Role="Design">
+              <PropertyRef Name="Product_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Design">
+          <End Role="Design" Type="Self.Design" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Design">
+              <PropertyRef Name="Design_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Design_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Line_Job_Type">
+          <End Role="Job_Type" Type="Self.Job_Type" Multiplicity="0..1" />
+          <End Role="Design_Line" Type="Self.Design_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job_Type">
+              <PropertyRef Name="Job_Type_ID" />
+            </Principal>
+            <Dependent Role="Design_Line">
+              <PropertyRef Name="Job_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Design_Line_Template_Position">
+          <End Role="Template_Position" Type="Self.Template_Position" Multiplicity="0..1" />
+          <End Role="Design_Line" Type="Self.Design_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template_Position">
+              <PropertyRef Name="Template_Position_ID" />
+            </Principal>
+            <Dependent Role="Design_Line">
+              <PropertyRef Name="Template_Position_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_User">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Line_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="0..1" />
+          <End Role="Permission_Line" Type="Self.Permission_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PermissionID" />
+            </Principal>
+            <Dependent Role="Permission_Line">
+              <PropertyRef Name="PermissionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission_Line_User_Role">
+          <End Role="User_Role" Type="Self.User_Role" Multiplicity="0..1" />
+          <End Role="Permission_Line" Type="Self.Permission_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Role">
+              <PropertyRef Name="UserRoleID" />
+            </Principal>
+            <Dependent Role="Permission_Line">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Position_Position">
+          <End Role="Position" Type="Self.Position" Multiplicity="0..1" />
+          <End Role="Template_Position" Type="Self.Template_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Position">
+              <PropertyRef Name="Position_ID" />
+            </Principal>
+            <Dependent Role="Template_Position">
+              <PropertyRef Name="Position_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Type__Product_Category">
+          <End Role="Product_Category" Type="Self.Product_Category" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Category">
+              <PropertyRef Name="Product_Category_ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="Product_Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Product_Size">
+          <End Role="Product_Size" Type="Self.Product_Size" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Size">
+              <PropertyRef Name="Product_Size_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Product_Size_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Type__Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="0..1" />
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Template_ID" />
+            </Principal>
+            <Dependent Role="Product_Type">
+              <PropertyRef Name="Template_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Line_Product_Type">
+          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="0..1" />
+          <End Role="Supplier_Order_Line" Type="Self.Supplier_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product_Type">
+              <PropertyRef Name="Product_Type_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order_Line">
+              <PropertyRef Name="Product_Type_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Line_Quotation">
+          <End Role="Quotation" Type="Self.Quotation" Multiplicity="0..1" />
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation">
+              <PropertyRef Name="Quotation_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Line">
+              <PropertyRef Name="Quotation_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Quotation_Status">
+          <End Role="Quotation_Status" Type="Self.Quotation_Status" Multiplicity="0..1" />
+          <End Role="Quotation" Type="Self.Quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Status">
+              <PropertyRef Name="Quotation_Status_ID" />
+            </Principal>
+            <Dependent Role="Quotation">
+              <PropertyRef Name="Quotation_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Line_Quotation_Request_Line">
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="0..1" />
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Request_Line">
+              <PropertyRef Name="Request_Line_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Line">
+              <PropertyRef Name="Request_Line_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Quotation_Line">
+          <End Role="Quotation_Line" Type="Self.Quotation_Line" Multiplicity="1" />
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Line">
+              <PropertyRef Name="Quotation_Line_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order">
+              <PropertyRef Name="Supplier_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Quotation_Request">
+          <End Role="Quotation_Request" Type="Self.Quotation_Request" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Quotation_Request">
+              <PropertyRef Name="Request_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Request_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Quotation_Request_Line_Web_Link">
+          <End Role="Web_Link" Type="Self.Web_Link" Multiplicity="0..1" />
+          <End Role="Quotation_Request_Line" Type="Self.Quotation_Request_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Web_Link">
+              <PropertyRef Name="Web_Link_ID" />
+            </Principal>
+            <Dependent Role="Quotation_Request_Line">
+              <PropertyRef Name="Web_Link_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Return_Customer_Order_Line_Return_Customer_Order">
+          <End Role="Return_Customer_Order" Type="Self.Return_Customer_Order" Multiplicity="0..1" />
+          <End Role="Return_Customer_Order_Line" Type="Self.Return_Customer_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Return_Customer_Order">
+              <PropertyRef Name="Return_Customer_Order_ID" />
+            </Principal>
+            <Dependent Role="Return_Customer_Order_Line">
+              <PropertyRef Name="Return_Customer_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="0..1" />
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Supplier_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order">
+              <PropertyRef Name="Supplier_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Web_Link">
+          <End Role="Web_Link" Type="Self.Web_Link" Multiplicity="0..1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Web_Link">
+              <PropertyRef Name="Web_Link_ID" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="Web_Link_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Line_Supplier_Order">
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="0..1" />
+          <End Role="Supplier_Order_Line" Type="Self.Supplier_Order_Line" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier_Order">
+              <PropertyRef Name="Supplier_Order_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order_Line">
+              <PropertyRef Name="Supplier_Order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_Order_Supplier_Order_Status">
+          <End Role="Supplier_Order_Status" Type="Self.Supplier_Order_Status" Multiplicity="0..1" />
+          <End Role="Supplier_Order" Type="Self.Supplier_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier_Order_Status">
+              <PropertyRef Name="Supplier_Order_Status_ID" />
+            </Principal>
+            <Dependent Role="Supplier_Order">
+              <PropertyRef Name="Supplier_Order_Status_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Template_Position_Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="0..1" />
+          <End Role="Template_Position" Type="Self.Template_Position" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="Template_ID" />
+            </Principal>
+            <Dependent Role="Template_Position">
+              <PropertyRef Name="Template_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_User_Role">
+          <End Role="User_Role" Type="Self.User_Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User_Role">
+              <PropertyRef Name="UserRoleID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserRoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KIMODBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Customer_Order" EntityType="Self.Customer_Order" />
+          <EntitySet Name="Customer_Order_Line" EntityType="Self.Customer_Order_Line" />
+          <EntitySet Name="Deliveries" EntityType="Self.Delivery" />
+          <EntitySet Name="Delivery_Address" EntityType="Self.Delivery_Address" />
+          <EntitySet Name="Designs" EntityType="Self.Design" />
+          <EntitySet Name="Design_Line" EntityType="Self.Design_Line" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Job_Type" EntityType="Self.Job_Type" />
+          <EntitySet Name="Order_Status" EntityType="Self.Order_Status" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Permission_Line" EntityType="Self.Permission_Line" />
+          <EntitySet Name="Positions" EntityType="Self.Position" />
+          <EntitySet Name="Product_Category" EntityType="Self.Product_Category" />
+          <EntitySet Name="Product_Size" EntityType="Self.Product_Size" />
+          <EntitySet Name="Product_Type" EntityType="Self.Product_Type" />
+          <EntitySet Name="Provinces" EntityType="Self.Province" />
+          <EntitySet Name="Quotations" EntityType="Self.Quotation" />
+          <EntitySet Name="Quotation_Line" EntityType="Self.Quotation_Line" />
+          <EntitySet Name="Quotation_Request" EntityType="Self.Quotation_Request" />
+          <EntitySet Name="Quotation_Request_Line" EntityType="Self.Quotation_Request_Line" />
+          <EntitySet Name="Quotation_Status" EntityType="Self.Quotation_Status" />
+          <EntitySet Name="Return_Customer_Order" EntityType="Self.Return_Customer_Order" />
+          <EntitySet Name="Return_Customer_Order_Line" EntityType="Self.Return_Customer_Order_Line" />
+          <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
+          <EntitySet Name="Supplier_Order" EntityType="Self.Supplier_Order" />
+          <EntitySet Name="Supplier_Order_Line" EntityType="Self.Supplier_Order_Line" />
+          <EntitySet Name="Supplier_Order_Status" EntityType="Self.Supplier_Order_Status" />
+          <EntitySet Name="Templates" EntityType="Self.Template" />
+          <EntitySet Name="Template_Position" EntityType="Self.Template_Position" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="User_Role" EntityType="Self.User_Role" />
+          <EntitySet Name="Web_Link" EntityType="Self.Web_Link" />
+          <AssociationSet Name="FK_Customer_Order_Customer" Association="Self.FK_Customer_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_User" Association="Self.FK_Customer_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Customer" Association="Self.FK_Design_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Design" EntitySet="Designs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Customer" Association="Self.FK_Quotation_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Quotation" EntitySet="Quotations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Customer" Association="Self.FK_Quotation_Request_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Quotation_Request" EntitySet="Quotation_Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Order_Line_Customer_Order" Association="Self.FK_Customer_Order_Line_Customer_Order">
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+            <End Role="Customer_Order_Line" EntitySet="Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Order_Order_Status" Association="Self.FK_Customer_Order_Order_Status">
+            <End Role="Order_Status" EntitySet="Order_Status" />
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Customer_Order" Association="Self.FK_Delivery_Customer_Order">
+            <End Role="Customer_Order" EntitySet="Customer_Order" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Order_Line_Quotation_Line" Association="Self.FK_Customer_Order_Line_Quotation_Line">
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+            <End Role="Customer_Order_Line" EntitySet="Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Customer_Order_Line_Customer_Order_Line" Association="Self.FK_Return_Customer_Order_Line_Customer_Order_Line">
+            <End Role="Customer_Order_Line" EntitySet="Customer_Order_Line" />
+            <End Role="Return_Customer_Order_Line" EntitySet="Return_Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Delivery_Address" Association="Self.FK_Delivery_Delivery_Address">
+            <End Role="Delivery_Address" EntitySet="Delivery_Address" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Delivery_Order_Status" Association="Self.FK_Delivery_Order_Status">
+            <End Role="Order_Status" EntitySet="Order_Status" />
+            <End Role="Delivery" EntitySet="Deliveries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Line_Design" Association="Self.FK_Design_Line_Design">
+            <End Role="Design" EntitySet="Designs" />
+            <End Role="Design_Line" EntitySet="Design_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Product_Type" Association="Self.FK_Design_Product_Type">
+            <End Role="Product_Type" EntitySet="Product_Type" />
+            <End Role="Design" EntitySet="Designs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Design" Association="Self.FK_Quotation_Request_Line_Design">
+            <End Role="Design" EntitySet="Designs" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Line_Job_Type" Association="Self.FK_Design_Line_Job_Type">
+            <End Role="Job_Type" EntitySet="Job_Type" />
+            <End Role="Design_Line" EntitySet="Design_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Design_Line_Template_Position" Association="Self.FK_Design_Line_Template_Position">
+            <End Role="Template_Position" EntitySet="Template_Position" />
+            <End Role="Design_Line" EntitySet="Design_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_User" Association="Self.FK_Employee_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Line_Permission" Association="Self.FK_Permission_Line_Permission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Permission_Line" EntitySet="Permission_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission_Line_User_Role" Association="Self.FK_Permission_Line_User_Role">
+            <End Role="User_Role" EntitySet="User_Role" />
+            <End Role="Permission_Line" EntitySet="Permission_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Position_Position" Association="Self.FK_Template_Position_Position">
+            <End Role="Position" EntitySet="Positions" />
+            <End Role="Template_Position" EntitySet="Template_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Type__Product_Category" Association="Self.FK_Product_Type__Product_Category">
+            <End Role="Product_Category" EntitySet="Product_Category" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Product_Size" Association="Self.FK_Quotation_Request_Line_Product_Size">
+            <End Role="Product_Size" EntitySet="Product_Size" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Type__Template" Association="Self.FK_Product_Type__Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="Product_Type" EntitySet="Product_Type" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Line_Product_Type" Association="Self.FK_Supplier_Order_Line_Product_Type">
+            <End Role="Product_Type" EntitySet="Product_Type" />
+            <End Role="Supplier_Order_Line" EntitySet="Supplier_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Line_Quotation" Association="Self.FK_Quotation_Line_Quotation">
+            <End Role="Quotation" EntitySet="Quotations" />
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Quotation_Status" Association="Self.FK_Quotation_Quotation_Status">
+            <End Role="Quotation_Status" EntitySet="Quotation_Status" />
+            <End Role="Quotation" EntitySet="Quotations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Line_Quotation_Request_Line" Association="Self.FK_Quotation_Line_Quotation_Request_Line">
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Quotation_Line" Association="Self.FK_Supplier_Order_Quotation_Line">
+            <End Role="Quotation_Line" EntitySet="Quotation_Line" />
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Quotation_Request" Association="Self.FK_Quotation_Request_Line_Quotation_Request">
+            <End Role="Quotation_Request" EntitySet="Quotation_Request" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Quotation_Request_Line_Web_Link" Association="Self.FK_Quotation_Request_Line_Web_Link">
+            <End Role="Web_Link" EntitySet="Web_Link" />
+            <End Role="Quotation_Request_Line" EntitySet="Quotation_Request_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Return_Customer_Order_Line_Return_Customer_Order" Association="Self.FK_Return_Customer_Order_Line_Return_Customer_Order">
+            <End Role="Return_Customer_Order" EntitySet="Return_Customer_Order" />
+            <End Role="Return_Customer_Order_Line" EntitySet="Return_Customer_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Supplier" Association="Self.FK_Supplier_Order_Supplier">
+            <End Role="Supplier" EntitySet="Suppliers" />
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Web_Link" Association="Self.FK_Supplier_Web_Link">
+            <End Role="Web_Link" EntitySet="Web_Link" />
+            <End Role="Supplier" EntitySet="Suppliers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Line_Supplier_Order" Association="Self.FK_Supplier_Order_Line_Supplier_Order">
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+            <End Role="Supplier_Order_Line" EntitySet="Supplier_Order_Line" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_Order_Supplier_Order_Status" Association="Self.FK_Supplier_Order_Supplier_Order_Status">
+            <End Role="Supplier_Order_Status" EntitySet="Supplier_Order_Status" />
+            <End Role="Supplier_Order" EntitySet="Supplier_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Position_Template" Association="Self.FK_Template_Position_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="Template_Position" EntitySet="Template_Position" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_User_Role" Association="Self.FK_User_User_Role">
+            <End Role="User_Role" EntitySet="User_Role" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KIMODBModelStoreContainer" CdmEntityContainer="KIMODBEntities">
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="KIMODBModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="Company_ID" ColumnName="Company_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact_Number" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email_Address" />
+                <ScalarProperty Name="Telephone_Number" ColumnName="Telephone_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="KIMODBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact_Number" />
+                <ScalarProperty Name="Email_Address" ColumnName="Email_Address" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="OTP" ColumnName="OTP" />
+                <ScalarProperty Name="verified" ColumnName="verified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_Order">
+            <EntityTypeMapping TypeName="KIMODBModel.Customer_Order">
+              <MappingFragment StoreEntitySet="Customer_Order">
+                <ScalarProperty Name="Customer_Order_ID" ColumnName="Customer_Order_ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Order_Total" ColumnName="Order_Total" />
+                <ScalarProperty Name="OrderStatus_ID" ColumnName="OrderStatus_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customer_Order_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Customer_Order_Line">
+              <MappingFragment StoreEntitySet="Customer_Order_Line">
+                <ScalarProperty Name="Customer_Order_Line_ID" ColumnName="Customer_Order_Line_ID" />
+                <ScalarProperty Name="Customer_Order_ID" ColumnName="Customer_Order_ID" />
+                <ScalarProperty Name="Quotation_Line_ID" ColumnName="Quotation_Line_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Deliveries">
+            <EntityTypeMapping TypeName="KIMODBModel.Delivery">
+              <MappingFragment StoreEntitySet="Delivery">
+                <ScalarProperty Name="Delivery_ID" ColumnName="Delivery_ID" />
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="Customer_Order_ID" ColumnName="Customer_Order_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="OrderStatus_ID" ColumnName="OrderStatus_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Delivery_Address">
+            <EntityTypeMapping TypeName="KIMODBModel.Delivery_Address">
+              <MappingFragment StoreEntitySet="Delivery_Address">
+                <ScalarProperty Name="Address_ID" ColumnName="Address_ID" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="Postal_Code" ColumnName="Postal_Code" />
+                <ScalarProperty Name="Province" ColumnName="Province" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designs">
+            <EntityTypeMapping TypeName="KIMODBModel.Design">
+              <MappingFragment StoreEntitySet="Design">
+                <ScalarProperty Name="Design_ID" ColumnName="Design_ID" />
+                <ScalarProperty Name="Product_Type_ID" ColumnName="Product_Type_ID" />
+                <ScalarProperty Name="Design_Name" ColumnName="Design_Name" />
+                <ScalarProperty Name="Additional_Instructions" ColumnName="Additional_Instructions" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Date_Created" ColumnName="Date_Created" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Design_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Design_Line">
+              <MappingFragment StoreEntitySet="Design_Line">
+                <ScalarProperty Name="Design_Line_ID" ColumnName="Design_Line_ID" />
+                <ScalarProperty Name="Design_ID" ColumnName="Design_ID" />
+                <ScalarProperty Name="Template_Position_ID" ColumnName="Template_Position_ID" />
+                <ScalarProperty Name="Job_Type_ID" ColumnName="Job_Type_ID" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="KIMODBModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Cell_Number" ColumnName="Cell_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Job_Type">
+            <EntityTypeMapping TypeName="KIMODBModel.Job_Type">
+              <MappingFragment StoreEntitySet="Job_Type">
+                <ScalarProperty Name="Job_Type_ID" ColumnName="Job_Type_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Status">
+            <EntityTypeMapping TypeName="KIMODBModel.Order_Status">
+              <MappingFragment StoreEntitySet="Order_Status">
+                <ScalarProperty Name="OrderStatus_ID" ColumnName="OrderStatus_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="KIMODBModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="PermissionDescription" ColumnName="PermissionDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Permission_Line">
+              <MappingFragment StoreEntitySet="Permission_Line">
+                <ScalarProperty Name="PermissionLineID" ColumnName="PermissionLineID" />
+                <ScalarProperty Name="PermissionID" ColumnName="PermissionID" />
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="KIMODBModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="Position_ID" ColumnName="Position_ID" />
+                <ScalarProperty Name="Position_Number" ColumnName="Position_Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Category">
+            <EntityTypeMapping TypeName="KIMODBModel.Product_Category">
+              <MappingFragment StoreEntitySet="Product_Category">
+                <ScalarProperty Name="Product_Category_ID" ColumnName="Product_Category_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Size">
+            <EntityTypeMapping TypeName="KIMODBModel.Product_Size">
+              <MappingFragment StoreEntitySet="Product_Size">
+                <ScalarProperty Name="Product_Size_ID" ColumnName="Product_Size_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product_Type">
+            <EntityTypeMapping TypeName="KIMODBModel.Product_Type">
+              <MappingFragment StoreEntitySet="Product_Type">
+                <ScalarProperty Name="Product_Type_ID" ColumnName="Product_Type_ID" />
+                <ScalarProperty Name="Product_Category_ID" ColumnName="Product_Category_ID" />
+                <ScalarProperty Name="Template_ID" ColumnName="Template_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageString" ColumnName="ImageString" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provinces">
+            <EntityTypeMapping TypeName="KIMODBModel.Province">
+              <MappingFragment StoreEntitySet="Province">
+                <ScalarProperty Name="Province_ID" ColumnName="Province_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotations">
+            <EntityTypeMapping TypeName="KIMODBModel.Quotation">
+              <MappingFragment StoreEntitySet="Quotation">
+                <ScalarProperty Name="Quotation_ID" ColumnName="Quotation_ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Additional_Notes" ColumnName="Additional_Notes" />
+                <ScalarProperty Name="Quotation_Status_ID" ColumnName="Quotation_Status_ID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotation_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Quotation_Line">
+              <MappingFragment StoreEntitySet="Quotation_Line">
+                <ScalarProperty Name="Quotation_Line_ID" ColumnName="Quotation_Line_ID" />
+                <ScalarProperty Name="Quotation_ID" ColumnName="Quotation_ID" />
+                <ScalarProperty Name="Request_Line_ID" ColumnName="Request_Line_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotation_Request">
+            <EntityTypeMapping TypeName="KIMODBModel.Quotation_Request">
+              <MappingFragment StoreEntitySet="Quotation_Request">
+                <ScalarProperty Name="Request_ID" ColumnName="Request_ID" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotation_Request_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Quotation_Request_Line">
+              <MappingFragment StoreEntitySet="Quotation_Request_Line">
+                <ScalarProperty Name="Request_Line_ID" ColumnName="Request_Line_ID" />
+                <ScalarProperty Name="Request_ID" ColumnName="Request_ID" />
+                <ScalarProperty Name="Design_ID" ColumnName="Design_ID" />
+                <ScalarProperty Name="Product_Size_ID" ColumnName="Product_Size_ID" />
+                <ScalarProperty Name="Colour" ColumnName="Colour" />
+                <ScalarProperty Name="Web_Link_ID" ColumnName="Web_Link_ID" />
+                <ScalarProperty Name="Product_Code" ColumnName="Product_Code" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Quotation_Status">
+            <EntityTypeMapping TypeName="KIMODBModel.Quotation_Status">
+              <MappingFragment StoreEntitySet="Quotation-Status">
+                <ScalarProperty Name="Quotation_Status_ID" ColumnName="Quotation_Status_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Return_Customer_Order">
+            <EntityTypeMapping TypeName="KIMODBModel.Return_Customer_Order">
+              <MappingFragment StoreEntitySet="Return_Customer_Order">
+                <ScalarProperty Name="Return_Customer_Order_ID" ColumnName="Return_Customer_Order_ID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Return_Customer_Order_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Return_Customer_Order_Line">
+              <MappingFragment StoreEntitySet="Return_Customer_Order_Line">
+                <ScalarProperty Name="Return_Line_ID" ColumnName="Return_Line_ID" />
+                <ScalarProperty Name="Return_Customer_Order_ID" ColumnName="Return_Customer_Order_ID" />
+                <ScalarProperty Name="Customer_Order_ID" ColumnName="Customer_Order_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="KIMODBModel.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+                <ScalarProperty Name="Supplier_Name" ColumnName="Supplier_Name" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact_Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Web_Link_ID" ColumnName="Web_Link_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier_Order">
+            <EntityTypeMapping TypeName="KIMODBModel.Supplier_Order">
+              <MappingFragment StoreEntitySet="Supplier_Order">
+                <ScalarProperty Name="Supplier_Order_ID" ColumnName="Supplier_Order_ID" />
+                <ScalarProperty Name="Supplier_ID" ColumnName="Supplier_ID" />
+                <ScalarProperty Name="Supplier_Order_Status_ID" ColumnName="Supplier_Order_Status_ID" />
+                <ScalarProperty Name="Quotation_ID" ColumnName="Quotation_ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier_Order_Line">
+            <EntityTypeMapping TypeName="KIMODBModel.Supplier_Order_Line">
+              <MappingFragment StoreEntitySet="Supplier_Order_Line">
+                <ScalarProperty Name="Supplier_Order_Line_ID" ColumnName="Supplier_Order_Line_ID" />
+                <ScalarProperty Name="Supplier_Order_ID" ColumnName="Supplier_Order_ID" />
+                <ScalarProperty Name="Product_Type_ID" ColumnName="Product_Type_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier_Order_Status">
+            <EntityTypeMapping TypeName="KIMODBModel.Supplier_Order_Status">
+              <MappingFragment StoreEntitySet="Supplier_Order_Status">
+                <ScalarProperty Name="Supplier_Order_Status_ID" ColumnName="Supplier_Order_Status_ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Templates">
+            <EntityTypeMapping TypeName="KIMODBModel.Template">
+              <MappingFragment StoreEntitySet="Template">
+                <ScalarProperty Name="Template_ID" ColumnName="Template_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Template_Position">
+            <EntityTypeMapping TypeName="KIMODBModel.Template_Position">
+              <MappingFragment StoreEntitySet="Template_Position">
+                <ScalarProperty Name="Template_Position_ID" ColumnName="Template_Position_ID" />
+                <ScalarProperty Name="Position_ID" ColumnName="Position_ID" />
+                <ScalarProperty Name="Template_ID" ColumnName="Template_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="KIMODBModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+                <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserPasswordChangeRequest" ColumnName="UserPasswordChangeRequest" />
+                <ScalarProperty Name="ResetOTP" ColumnName="ResetOTP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Role">
+            <EntityTypeMapping TypeName="KIMODBModel.User_Role">
+              <MappingFragment StoreEntitySet="User_Role">
+                <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+                <ScalarProperty Name="UserRoleDescription" ColumnName="UserRoleDescription" />
+                <ScalarProperty Name="UserRoleName" ColumnName="UserRoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Web_Link">
+            <EntityTypeMapping TypeName="KIMODBModel.Web_Link">
+              <MappingFragment StoreEntitySet="Web_Link">
+                <ScalarProperty Name="Web_Link_ID" ColumnName="Web_Link_ID" />
+                <ScalarProperty Name="Web_Name" ColumnName="Web_Name" />
+                <ScalarProperty Name="Web_Address" ColumnName="Web_Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

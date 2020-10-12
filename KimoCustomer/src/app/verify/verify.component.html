@@ -1,0 +1,21 @@
+
+
+<div class="container">
+    <div class="col-md-6" style="margin:auto">
+        <form  class="text-center border border-light p-5" action="#!" style="background-color: lightgray">
+            <p class="h4 mb-4">Enter OTP</p>
+            <div *ngIf="noOTP" class="alet alert-danger">Enter the OTP we sent you (6-digits)</div> 
+            <input type="text" id="otp" name="username" class="form-control mb-4" placeholder="OTP" [(ngModel)]="enteredOTP">
+            <button mdbBtn block="true" color="dark-green" (click)="checkOTP()" mdbWavesEffect type="submit">Verify</button>
+        </form>
+
+        <form  *ngIf="success" class="text-center border border-light p-5" action="#!" style="background-color: lightgray">
+            <p class="h4 mb-4">Successfully Verified!</p>
+            <button mdbBtn block="true" color="dark-green" routerLink="/product" mdbWavesEffect type="submit">Shop Now</button>
+        </form>
+
+        <form  *ngIf="failure" class="text-center border border-light p-5" action="#!" style="background-color: red">
+            <p class="h4 mb-4">Failed to verify! Please retry!</p>
+        </form>
+    </div>
+</div>

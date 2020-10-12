@@ -1,0 +1,59 @@
+<!--show if account not verified-->
+<div *ngIf="notVerified" class="alert alert-success container" style="background-color:lightpink">
+    <p style="color:white; font-weight: bold">In order to enable send your request, please verify it by entering the OTP we emailed you! </p>
+    <button mdbBtn type="submit" color="grey" (click)="resend()" class="my-4">Resend Email</button>
+    <button type="button" mdbBtn  color="grey" mdbWavesEffect routerLink="/verify">Verify Account</button>
+  </div>
+  
+  <!--mail resent-->
+  <div *ngIf="resent" class="alert alert-success container" style="background-color:lightpink;color:white; font-weight: bold">OTP resent!</div>
+  
+  <!--mail resent-->
+  <div *ngIf="failed" class="alert alert-danger container" style="background-color:lightpink;color:white; font-weight: bold">Something went wrong!</div>
+  
+  
+  
+  
+  
+  <!--Div housing the HTML buttons pertaining to client option regarding their account-->
+  <div class="container container-fluid" style="text-align: center; margin-bottom: 75px;">
+    <!--This is the help icon, when clicked, modal pops up-->
+  <!-- <mdb-icon fas icon="question-circle" (click)="basicModal.show()"></mdb-icon> -->
+  
+    <div class="row">
+      
+        <div class="col text-center" style="padding-top:15px;">
+            <div style="padding-bottom:20px;">
+                <button type="button" mdbBtn block="true" color="dark-green" mdbWavesEffect routerLink="/vieworders">View my Orders</button>
+            </div>
+            <div style="padding-bottom:20px;">
+                <button type="button" mdbBtn block="true" color="dark-green" mdbWavesEffect routerLink="/editaccountdetails">Edit my Account Details</button>
+            </div>
+            <div style="padding-bottom:20px;">
+                <button type="button" mdbBtn block="true" color="dark-green" mdbWavesEffect routerLink="/resetpassword">Reset my Password</button>
+            </div>
+            <div style="padding-bottom:15px;">
+                <button type="button" mdbBtn block="true" color="dark-green" mdbWavesEffect routerLink="/querymenu">QUERIES</button>
+              </div>
+          </div>
+    </div>  
+  </div>
+  <!--End of account menu HTML-->
+  
+
+  
+  
+  
+  
+    <div id="overlay">
+        <span id="nav" *ngIf="saveInProgress">
+            <div class="spinner" style="display: block; position: fixed">
+            </div>
+        </span>
+        <span id="nav" *ngIf="saveInProgress">
+            <div class="submit-message" style="display: block; color: #FFFFFF; position: fixed; left: 49.7%; top: 54.5%;">
+                Requesting...
+            </div>
+        </span>
+    </div>
+  

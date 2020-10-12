@@ -1,0 +1,42 @@
+<!--This HTML is for the login screen-->
+<div class="container" style="align-content: center; padding:80px;">
+    <div>
+    <form   class="text-center border border-light p-5" style="background-color:#e8f5e9">
+        <p class="h4 mb-4">Log in</p> 
+        <input type="email" id="defaultLoginFormUsername" class="form-control mb-4" placeholder="Username" name="logUsername" [(ngModel)]="logUsernameVar" (click)="clearInput('logUsernameVar')"> 
+        <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password"name="logPassword" [(ngModel)]="logPasswordVar" (click)="clearInput('logPasswordVar')">  
+        <div class="d-flex justify-content-around">
+          <!-- <div>
+            <mdb-checkbox [default]="true">Remember me</mdb-checkbox>
+          </div> -->
+          <div>
+              <!--change the routerlink to recover password when implemented and remove this comment-->
+            <a routerLink="/resetpassword">Forgot password?</a>
+          </div>
+        </div>
+      
+        <button  color="dark-red" block="true" class="my-4 btn btn-success" type="submit" (click)="customerLogin()">Log in</button>
+    
+        <p>Not a registered customer?
+          <a routerLink="/register">Register</a>
+        </p>
+        <div *ngIf="succLogin" class="alert alert-danger">
+          This customer does not exist!
+        </div>
+    
+        <div *ngIf="invPass" class="alert alert-danger">
+          Incorrect Password!
+        </div>
+    
+        <div *ngIf="emptyUSR" class="alert alert-danger">
+          Please enter a username!
+        </div>
+    
+        <div *ngIf="emptyPSR" class="alert alert-danger">
+          Please enter a password!
+        </div>
+    
+      </form>
+    </div>
+    </div>
+      <!--End of login HTML-->

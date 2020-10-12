@@ -1,0 +1,30 @@
+
+<div class="wrapper">
+    <div class="main-container">
+        <div class="container">
+<h1 >Product Types</h1>
+<div class="container col-6">
+    <div class="form-group" style="text-align: center;">
+     <label for="Product_Category">Select list:</label>
+        <select name="Product_Category" class="form-control" >
+            <option *ngFor="let item of catList">{{item.Description}}</option>   
+
+        </select>
+    </div>
+    
+    <div class="card flex" style="text-align: center">
+        <div class="card-body">       
+            <div class="form-group " style="text-align: center; ">    
+                <tr *ngFor="let item of types">
+                    <td><button class="btn btn-default" (click)="design(item.Product_Type_ID)">{{item.Name}}</button></td>
+                </tr>            
+            </div>          
+        </div>  
+     </div>
+</div>
+    </div>
+    
+</div>
+</div>
+
+

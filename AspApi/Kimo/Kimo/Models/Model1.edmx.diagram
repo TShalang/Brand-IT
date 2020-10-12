@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0c93f8e6131b4cb4b0910ad2117983b6" Name="Diagram1">
+        <EntityTypeShape EntityType="KIMODBModel.Company" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Customer" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Customer_Order" Width="1.5" PointX="7.5" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Customer_Order_Line" Width="1.5" PointX="12.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Delivery" Width="1.5" PointX="9.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Delivery_Address" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Design" Width="1.5" PointX="10.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Design_Line" Width="1.5" PointX="15.75" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Employee" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Job_Type" Width="1.5" PointX="13.5" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Order_Status" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Permission" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Permission_Line" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Position" Width="1.5" PointX="11.25" PointY="25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Product_Category" Width="1.5" PointX="6" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Product_Size" Width="1.5" PointX="10.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Product_Type" Width="1.5" PointX="8.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Province" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Quotation" Width="1.5" PointX="7.5" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Quotation_Line" Width="1.5" PointX="18" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Quotation_Request" Width="1.5" PointX="7.5" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Quotation_Request_Line" Width="1.5" PointX="12.75" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Quotation_Status" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Return_Customer_Order" Width="1.5" PointX="15.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Return_Customer_Order_Line" Width="1.5" PointX="18" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Supplier" Width="1.5" PointX="18" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Supplier_Order" Width="1.5" PointX="20.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Supplier_Order_Line" Width="1.5" PointX="22.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Supplier_Order_Status" Width="1.5" PointX="18" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Template" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Template_Position" Width="1.5" PointX="13.5" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.User" Width="1.5" PointX="3" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.User_Role" Width="1.5" PointX="0.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KIMODBModel.Web_Link" Width="1.5" PointX="10.5" PointY="21.375" IsExpanded="true" />
+        <AssociationConnector Association="KIMODBModel.FK_Customer_Order_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Customer_User" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Design_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Request_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Customer_Order_Line_Customer_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Customer_Order_Order_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Delivery_Customer_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Customer_Order_Line_Quotation_Line" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Return_Customer_Order_Line_Customer_Order_Line" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Delivery_Delivery_Address" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Delivery_Order_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Design_Line_Design" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Design_Product_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Request_Line_Design" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Design_Line_Job_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Design_Line_Template_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Employee_User" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Permission_Line_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Permission_Line_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Template_Position_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Product_Type__Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Request_Line_Product_Size" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Product_Type__Template" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Supplier_Order_Line_Product_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Line_Quotation" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Quotation_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Line_Quotation_Request_Line" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Supplier_Order_Quotation_Line" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Request_Line_Quotation_Request" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Quotation_Request_Line_Web_Link" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Return_Customer_Order_Line_Return_Customer_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Supplier_Order_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Supplier_Web_Link" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Supplier_Order_Line_Supplier_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Supplier_Order_Supplier_Order_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_Template_Position_Template" ManuallyRouted="false" />
+        <AssociationConnector Association="KIMODBModel.FK_User_User_Role" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

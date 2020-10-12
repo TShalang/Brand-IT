@@ -1,0 +1,136 @@
+<!--The following HTML is for the registration form-->
+<!-- Default form register -->
+<!-- <mdb-icon fas icon="question-circle" (click)="basicModal.show()" style="margin-top:40px;"></mdb-icon> -->
+<div class="container">
+    <br><br><br><br><br>
+  <form class="text-center border border-light p-5" style="background-color:#e8f5e9; padding:80px;  margin-bottom:150px;">
+      <p class="h4 mb-4">Sign up</p>  
+      <div class="form-row mb-4">
+        <div class="col">
+          <input type="text" id="firstName" name="fName" class="form-control" placeholder="First name" (click)="clearInput('fNameVar')" (change)="valInput('firstName')" [(ngModel)]="fNameVar" >
+          <div *ngIf="invFN" class="alet alert-danger">No Numbers or special characters</div>
+        </div>
+        <div class="col">
+          <input type="text" id="lastName" name="lName" class="form-control" placeholder="Last name" (click)="clearInput('lNameVar')" (change)="valInput('lastName')" [(ngModel)]="lNameVar">
+          <div *ngIf="invLN" class="alet alert-danger">No Numbers or special characters</div>
+      </div>
+      </div>
+      <div class="form-row mb-4">
+          <div class="col">
+              <input type="text" id="username" name="uName" class="form-control" placeholder="Username" (click)="clearInput('uNameVar')" (change)="valInput('username')" [(ngModel)]="uNameVar">
+              <div *ngIf="invUN" class="alet alert-danger">No Numbers or special characters</div>
+          </div>
+          <div class="col">
+              <input type="email" id="email" name="eMail" class="form-control" placeholder="E-mail" (click)="clearInput('eMailVar')" (change)="valInput('email')" [(ngModel)]="eMailVar">      
+              <div *ngIf="invEM" class="alet alert-danger">Must include an @ and no special characters</div>
+          </div>
+      </div>
+      <div class="form-row mb-4">
+          <div class="col">
+              <input type="password" id="password" name="Pass" class="form-control" placeholder="Password" (click)="clearInput('passwordVar')" [(ngModel)]="passwordVar" (change)="valInput('password')" aria-describedby="defaultRegisterFormPasswordHelpBlock">              
+              <div *ngIf="invPCo" class="alet alert-danger">Passwords must match</div>
+          </div>
+          <div class="col">
+              <input type="password" id="passConfirm" name="cPass" class="form-control" placeholder="Confirm Password" (click)="clearInput('cPasswordVar')" [(ngModel)]="cPasswordVar" (change)="valInput('passConfirm')" aria-describedby="defaultRegisterFormPasswordHelpBlock">           
+              <div *ngIf="invPCo" class="alet alert-danger">Passwords must match</div>
+          </div>
+      </div>
+      <div class="form-row mb-4">
+        <div class="col">
+            <input type="text" id="streetName" name="sName" class="form-control"  placeholder="Street Name" (change)="valInput('streetName')" (click)="clearInput('sNameVar')" [(ngModel)]="sNameVar">
+            <div *ngIf="invSN" class="alet alert-danger">No Numbers or special characters</div>                   
+        </div>
+          
+      </div>
+      <div class="form-row mb-4">
+        <div class="col">
+            <input type="text" id="streetNumber" name="sNumber" class="form-control" placeholder="Street Number" (change)="valInput('streetNumber')" (click)="clearInput('sNumberVar')" [(ngModel)]="sNumberVar">
+            <div *ngIf="invSNo" class="alet alert-danger">Number only</div> 
+        </div>
+          <div class="col">
+              <input type="text" id="contactNumber" name="cNumber" class="form-control" placeholder="Contact number" (change)="valInput('contactNumber')" (click)="clearInput('cNumberVar')" [(ngModel)]="cNumberVar" aria-describedby="defaultRegisterFormPhoneHelpBlock">
+              <div *ngIf="invCN" class="alet alert-danger">No spaces and no code like +27</div>                  
+          </div>
+      </div>
+      <div class="form-row mb-4">
+          <div class="col">
+              <input type="text" id="postalCode" name="pCode" class="form-control" placeholder="Postal Code" (change)="valInput('postalCode')" (click)="clearInput('pCodeVar')" [(ngModel)]="pCodeVar">                         
+              <div *ngIf="invPCo" class="alet alert-danger">Number only</div> 
+          </div>
+          <div class="col">
+              <select name="province" id="province" name="province" class="form-control mb-4" [(ngModel)]="provinceVar">
+                  <option value="Eastern Cape">Eastern Cape</option>
+                  <option value="Free State">Free State</option>
+                  <option selected value="Gauteng">Gauteng</option>
+                  <option value="Kwazulu Natal">Kwazulu Natal</option>
+                  <option value="Mpumalanga">Mpumalanga</option>
+                  <option value="Limpopo">Limpopo</option>          
+                  <option value="North West">North West</option>
+                  <option value="Northern Cape">Northern Cape</option>
+                  <option value="Western Cape">Western Cape</option>           
+              </select>                      
+          </div>
+      </div>
+  <div *ngIf="saveInProgress">
+      <div class="loader"><span></span></div><br>
+      <p>Saving...</p>
+    </div>
+    <div *ngIf="!saveInProgress">
+      <button background-color="Blue" class="my-4 btn btn-success" type="submit" (click)="signUp()">Sign Up</button> &nbsp;
+      <button mdbBtn color="dark-green" class="my-4 btn btn-success" type="submit" routerLink="/login">Login</button>
+    </div>
+      <hr>
+  <!--Remeber to implement a terms of service screen-->
+      
+        <div *ngIf="succReg" class="alert alert-danger">
+            Please Ensure you have entered valid information!
+        </div>
+        <div *ngIf="usrEx" class="alert alert-danger">
+          This username already exists!
+      </div>
+      <!-- <div id="overlay">
+        <span id="nav" >
+            <div class="spinner" style="display: block; position: fixed">
+            </div>
+        </span>
+        <span id="nav" *ngIf="saveInProgress">
+            <div class="submit-message" style="display: block; color: #FFFFFF; position: fixed; left: 49.7%; top: 54.5%;">
+                Saving...
+            </div>
+        </span>
+    </div> -->
+  
+  
+    </form>
+  <!--End of register form-->
+  </div>
+  
+  
+  <!--HTML for HELP MODAL. Load help message from database-->
+  <div  #basicModal="" class="modal fade customDiv" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" style="overflow-y: auto">
+      <div class="modal-dialog customModal" role="document">
+        <div class="modal-content customModal">
+          <div class="modal-header customModal">
+            <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <h4 class="modal-title w-100" id="myModalLabel" style="color:green">Register</h4>
+          </div>
+          <div class="modal-body customModal">
+            <p>This is the register page.</p><br/>
+            <p style="color:green; font-weight: bold">The following apply:</p>
+            <p>-All fields are required</p>
+            <p>-Name and Last name may only contains letters</p>
+            <p>-Username may contains letters and numbers</p>
+            <p>-Passwords need to match and can contain any letters, numbers and special characters</p>
+            <p>-Street Name can only contains letters</p>
+            <p>-Street Number and Postal Code can only contains letters</p>
+            <p>-Phone number must be length 10 (no spaces) and no area code</p>
+          </div>
+          <div class="modal-footer customModal">
+            <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--End of help modal-->
